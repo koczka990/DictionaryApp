@@ -4,9 +4,8 @@ using System.Text;
 
 namespace DictionaryApp.Core.Models
 {
-    public class LanguageList
+    public class LanguagePair
     {
-        public List<string> Languages { get; }
-
+        public string Languages { get; set; }
     }
 }

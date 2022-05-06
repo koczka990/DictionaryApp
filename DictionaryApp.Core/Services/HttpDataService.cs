@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-
+using DictionaryApp.Core.Models;
 using Newtonsoft.Json;
 
 namespace DictionaryApp.Core.Services
@@ -15,6 +15,7 @@ namespace DictionaryApp.Core.Services
     {
         private readonly Dictionary<string, object> responseCache;
         private HttpClient client;
+        const string API_KEY = "dict.1.1.20220505T150713Z.6f6ae4bb7c0ea354.0731fdcbff1249c030cd7ea0e953956bd23ea0c3";
 
         public HttpDataService(string defaultBaseUrl = "")
         {
@@ -55,6 +56,14 @@ namespace DictionaryApp.Core.Services
             }
 
             return result;
+        }
+
+        private readonly string serverUrl = "https://dictionary.yandex.net/api/v1/dicservice.json";
+
+        public async Task<List<string>> GetListOfLanguages()
+        {
+            //Console.WriteLine(client.BaseAddress + "getLang");
+            return await GetAsync<List<string>>("getLangs?key=" + API_KEY);
         }
 
         public async Task<bool> PostAsync<T>(string uri, T item)

@@ -38,9 +38,9 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Row="0" Grid.Column="0"></ComboBox>
+                <ComboBox Grid.Row="0" Grid.Column="0" ItemsSource="{x:Bind ViewModel.fromLanguages}"></ComboBox>
                 <Rectangle Grid.Row="0" Grid.Column="1" Width="200" Fill="Aqua"/>
-                <ComboBox Grid.Row="0" Grid.Column="2"></ComboBox>
+                <ComboBox Grid.Row="0" Grid.Column="2" ItemsSource="{x:Bind ViewModel.toLanguages}"></ComboBox>
                 <TextBox Grid.Row="1" Grid.Column="0"></TextBox>
                 <Button Grid.Row="1" Grid.Column="1" Width="100" Content="Translate" HorizontalAlignment="Center"/>
                 <TextBox Grid.Row="1" Grid.Column="2"></TextBox>
