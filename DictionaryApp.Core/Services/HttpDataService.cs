@@ -58,12 +58,16 @@ namespace DictionaryApp.Core.Services
             return result;
         }
 
-        private readonly string serverUrl = "https://dictionary.yandex.net/api/v1/dicservice.json";
+        //private readonly string serverUrl = "https://dictionary.yandex.net/api/v1/dicservice.json";
 
         public async Task<List<string>> GetListOfLanguages()
         {
-            //Console.WriteLine(client.BaseAddress + "getLang");
             return await GetAsync<List<string>>("getLangs?key=" + API_KEY);
+        }
+
+        public async Task<LookUp> LookupTranslation(string lang, string text)
+        {
+            return await GetAsync<LookUp>($"lookup?key={API_KEY}&lang={lang}&text={text}");
         }
 
         public async Task<bool> PostAsync<T>(string uri, T item)

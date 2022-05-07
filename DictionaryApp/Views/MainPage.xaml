@@ -25,7 +25,7 @@
                 The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.
             -->
-            <Grid>
+            <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -33,19 +33,19 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Row="0" Grid.Column="0" ItemsSource="{x:Bind ViewModel.fromLanguages}"></ComboBox>
-                <Rectangle Grid.Row="0" Grid.Column="1" Width="200" Fill="Aqua"/>
-                <ComboBox Grid.Row="0" Grid.Column="2" ItemsSource="{x:Bind ViewModel.toLanguages}"></ComboBox>
-                <TextBox Grid.Row="1" Grid.Column="0"></TextBox>
-                <Button Grid.Row="1" Grid.Column="1" Width="100" Content="Translate" HorizontalAlignment="Center"/>
-                <TextBox Grid.Row="1" Grid.Column="2"></TextBox>
-                <Button Grid.Row="2" Grid.Column="0" Content="Get Synonims"/>
-                <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="lorem ipsum hejjho hejjho \n hejjho"/>
+                <ComboBox x:Name="FromLangComboBox" SelectionChanged="FromLangCombobox_SelectionChanged" ItemsSource="{x:Bind ViewModel.fromLanguages}" SelectedItem="{x:Bind ViewModel.SelectedFromLang, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Rectangle Grid.Row="0" Grid.Column="1" Width="200" Height="40" Fill="Aqua" Margin="10"/>
+                <ComboBox x:Name="ToLangComboBox" Grid.Column="2" ItemsSource="{x:Bind ViewModel.toLanguages}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox x:Name="InputTextBox" Grid.Row="1" Grid.Column="0"></TextBox>
+                <Button Grid.Row="1" Grid.Column="1" Width="100" Content="Translate" HorizontalAlignment="Center" Click="Translate_Button_Click"/>
+                <TextBox x:Name="OutputTextBox" Grid.Row="1" Grid.Column="2" Text="{x:Bind ViewModel.OutputWord, Mode=TwoWay}"/>
+                <Button Grid.Row="2" Grid.Column="0" Content="Get Synonims" Margin="5"/>
+                <TextBlock x:Name="SynTextBlock" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{x:Bind selectedItem}"/>
             </Grid>
         </Grid>
     </Grid>
