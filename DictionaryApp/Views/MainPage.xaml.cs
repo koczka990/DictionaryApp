@@ -33,8 +33,15 @@ namespace DictionaryApp.Views
             var fromLang = FromLangComboBox.SelectedItem.ToString();
             var toLang = ToLangComboBox.SelectedItem.ToString();
             if (String.IsNullOrEmpty(fromLang) || String.IsNullOrEmpty(toLang)) return;
-
             ViewModel.Translate(fromLang, toLang, input);
+        }
+
+        private void Synonims_Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var input = InputTextBox.Text;
+            var fromLang = FromLangComboBox.SelectedItem.ToString();
+            if (String.IsNullOrEmpty(fromLang)) return;
+            ViewModel.GetSynonims(fromLang, input);
         }
     }
 }

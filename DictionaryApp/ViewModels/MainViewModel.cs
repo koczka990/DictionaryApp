@@ -16,13 +16,8 @@ namespace DictionaryApp.ViewModels
         public List<LanguagePair> LanguagePairs { get; set; } = new List<LanguagePair>();
         public ObservableCollection<string> fromLanguages { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> toLanguages { get; set; } = new ObservableCollection<string>();
-        public string _outputWord;
-        public ObservableCollection<Tr> Translations { get; set; } = new ObservableCollection<Tr>();
-        public string OutputWord
-        {
-            get { return _outputWord; }
-            set { SetProperty(ref _outputWord, value); }
-        }
+        public ObservableCollection<Def> Entries { get; set; } = new ObservableCollection<Def>();
+        
 
         public string _selectedFromLang;
         public string SelectedFromLang
@@ -59,12 +54,24 @@ namespace DictionaryApp.ViewModels
             if (string.IsNullOrEmpty(input)) return;
             var lookup = await service.LookupTranslation($"{fromLang}-{toLang}", input);
             if (lookup.def.Count == 0) return;
-            Translations.Clear();
-            foreach(var tr in lookup.def[0].tr)
+            Entries.Clear();
+            foreach(var d in lookup.def)
             {
-                Translations.Add(tr);
+                Entries.Add(d);
             }
-            //OutputWord = lookup.def[0].tr[0].text;
+        }
+
+        internal async void GetSynonims(string fromLang, string input)
+        {
+            if (string.IsNullOrEmpty(input)) return;
+            if (!LanguageList.Contains($"{fromLang}-{fromLang}")) return;
+            var lookup = await service.LookupTranslation($"{fromLang}-{fromLang}", input);
+            if (lookup.def.Count == 0) return;
+            Entries.Clear();
+            foreach (var d in lookup.def)
+            {
+                Entries.Add(d);
+            }
         }
 
         public void changeLists(string fromLang)

@@ -36,29 +36,37 @@
                     <Path Stroke="Black" Data="M 10 0 L 16 4 L 10 8 M 0 4 L 16 4" HorizontalAlignment="Center" VerticalAlignment="center" Margin="10"/>
                     <ComboBox x:Name="ToLangComboBox" ItemsSource="{x:Bind ViewModel.toLanguages}"/>
                     <Button Width="100" Content="Translate" HorizontalAlignment="Center" Click="Translate_Button_Click" Margin="10 0"/>
-                    <Button Width="100" Content="Synonims" HorizontalAlignment="Center"/>
+                    <Button Width="100" Content="Synonims" HorizontalAlignment="Center" Click="Synonims_Button_Click"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="50">
                     <TextBlock Text="Input:" Margin="10 0 10 0" VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Medium"/>
                     <TextBox x:Name="InputTextBox" Grid.Row="1" Grid.Column="0" Width="200" Height="32" VerticalAlignment="Top"/>
 
                     <ScrollViewer MaxHeight="500">
-                        <ListView Background="LightGoldenrodYellow" Margin="10" ItemsSource="{x:Bind ViewModel.Translations}" ScrollViewer.VerticalScrollBarVisibility="Visible" CanBeScrollAnchor="True">
+                        <ListView IsItemClickEnabled="False" Background="LightGoldenrodYellow" Margin="10" ItemsSource="{x:Bind ViewModel.Entries}" ScrollViewer.VerticalScrollBarVisibility="Visible" CanBeScrollAnchor="True">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" Margin="40 0">
-                                        <Ellipse Width="8" Height="8" Fill="Black" HorizontalAlignment="Center" Margin="10 0"/>
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock FontWeight="Medium" Text="{Binding text}"/>
-                                            <TextBlock FontWeight="Light" FontSize="12" Text="{Binding pos}"/>
+                                    <StackPanel Orientation="Vertical" Margin="40 0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontWeight="Bold" Text="{Binding text}" VerticalAlignment="Center"/>
+                                            <TextBlock FontWeight="Medium" Text=" | "/>
+                                            <TextBlock FontWeight="Light" FontSize="12" Text="{Binding pos}" VerticalAlignment="Center"/>
                                         </StackPanel>
+                                        <ListView ItemsSource="{Binding tr}" IsItemClickEnabled="False">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock FontWeight="Medium" Text="   - "/>
+                                                        <TextBlock FontWeight="Normal" Text="{Binding text}"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
                     </ScrollViewer>
-
-                   
 
                 </StackPanel>
                     
