@@ -17,6 +17,7 @@ namespace DictionaryApp.ViewModels
         public ObservableCollection<string> fromLanguages { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> toLanguages { get; set; } = new ObservableCollection<string>();
         public string _outputWord;
+        public ObservableCollection<Tr> Translations { get; set; } = new ObservableCollection<Tr>();
         public string OutputWord
         {
             get { return _outputWord; }
@@ -55,21 +56,24 @@ namespace DictionaryApp.ViewModels
 
         internal async void Translate(string fromLang, string toLang, string input)
         {
+            if (string.IsNullOrEmpty(input)) return;
             var lookup = await service.LookupTranslation($"{fromLang}-{toLang}", input);
             if (lookup.def.Count == 0) return;
-            OutputWord = lookup.def[0].tr[0].text;
+            Translations.Clear();
+            foreach(var tr in lookup.def[0].tr)
+            {
+                Translations.Add(tr);
+            }
+            //OutputWord = lookup.def[0].tr[0].text;
         }
 
         public void changeLists(string fromLang)
         {
             toLanguages.Clear();
             foreach (var pair in LanguagePairs)
-            {
-                //fromLanguages.Clear();
-                
+            {   
                 if(pair.From == fromLang && pair.To != fromLang)
                 {
-                    //if (!fromLanguages.Contains(pair.From)) fromLanguages.Add(pair.From);
                     if (!toLanguages.Contains(pair.To)) toLanguages.Add(pair.To);
                 }
             }
