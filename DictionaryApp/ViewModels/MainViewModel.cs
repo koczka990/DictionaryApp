@@ -10,7 +10,6 @@ namespace DictionaryApp.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        const string API_KEY = "dict.1.1.20220505T150713Z.6f6ae4bb7c0ea354.0731fdcbff1249c030cd7ea0e953956bd23ea0c3";
         HttpDataService service;
         public List<string> LanguageList { get; set; } = new List<string>();
         public List<LanguagePair> LanguagePairs { get; set; } = new List<LanguagePair>();
@@ -30,6 +29,9 @@ namespace DictionaryApp.ViewModels
             service = new HttpDataService("https://dictionary.yandex.net/api/v1/dicservice.json");
         }
 
+        /// <summary>
+        /// Loading list of available languages into the app
+        /// </summary>
         public override async void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             
@@ -49,6 +51,12 @@ namespace DictionaryApp.ViewModels
             base.OnNavigatedTo(e, viewModelState);
         }
 
+        /// <summary>
+        /// translation function which looks up the translation for the specified word from API. The input is in the fromLang language, the output is in the toLang language.
+        /// </summary>
+        /// <param name="fromLang">language of the input word</param>
+        /// <param name="toLang">target language, which we want to get the translation in</param>
+        /// <param name="input">the word for translation</param>
         internal async void Translate(string fromLang, string toLang, string input)
         {
             if (string.IsNullOrEmpty(input)) return;
@@ -61,6 +69,11 @@ namespace DictionaryApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Get sysnonims for a specified word from API.
+        /// </summary>
+        /// <param name="fromLang">Language which the input word is written in.</param>
+        /// <param name="input">Input word for getting sysnonims for</param>
         internal async void GetSynonims(string fromLang, string input)
         {
             if (string.IsNullOrEmpty(input)) return;
@@ -74,6 +87,11 @@ namespace DictionaryApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Changes the content of tolanguages (combobox), according to an input language.
+        /// this is required so the user can not pick language pairs which are not included in the API.
+        /// </summary>
+        /// <param name="fromLang">The new input language</param>
         public void changeLists(string fromLang)
         {
             toLanguages.Clear();

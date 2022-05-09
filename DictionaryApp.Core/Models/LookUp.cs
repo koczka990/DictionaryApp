@@ -4,17 +4,24 @@ using System.Text;
 
 namespace DictionaryApp.Core.Models
 {
-
+    /// <summary>
+    /// answer for translation
+    /// contains all the corresponding dictionary entries
+    /// </summary>
     public class LookUp
     {
         public Head head { get; set; }
         public List<Def> def { get; set; } //array of dictionary entries
     }
 
+    //Not used
     public class Head
     {
     }
 
+    /// <summary>
+    /// Dictionary entry
+    /// </summary>
     public class Def
     {
         public string text { get; set; } //text to output (same in each class)
@@ -23,7 +30,9 @@ namespace DictionaryApp.Core.Models
         public List<Tr> tr { get; set; } //array of translations
     }
 
-    //Translation
+    /// <summary>
+    /// Translation
+    /// </summary>
     public class Tr
     {
         public string text { get; set; }
@@ -36,6 +45,9 @@ namespace DictionaryApp.Core.Models
         public string asp { get; set; }
     }
 
+    /// <summary>
+    /// Sysnonim
+    /// </summary>
     public class Syn
     {
         public string text { get; set; }
@@ -45,17 +57,26 @@ namespace DictionaryApp.Core.Models
         public string asp { get; set; }
     }
 
+    /// <summary>
+    /// Meaning
+    /// </summary>
     public class Mean
     {
         public string text { get; set; }
     }
 
+    /// <summary>
+    /// Example
+    /// </summary>
     public class Ex
     {
         public string text { get; set; }
         public List<Tr1> tr { get; set; }
     }
 
+    /// <summary>
+    /// Translation of example
+    /// </summary>
     public class Tr1
     {
         public string text { get; set; }

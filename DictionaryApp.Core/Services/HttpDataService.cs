@@ -15,7 +15,7 @@ namespace DictionaryApp.Core.Services
     {
         private readonly Dictionary<string, object> responseCache;
         private HttpClient client;
-        const string API_KEY = "dict.1.1.20220505T150713Z.6f6ae4bb7c0ea354.0731fdcbff1249c030cd7ea0e953956bd23ea0c3";
+        const string API_KEY = "dict.1.1.20220505T150713Z.6f6ae4bb7c0ea354.0731fdcbff1249c030cd7ea0e953956bd23ea0c3"; 
 
         public HttpDataService(string defaultBaseUrl = "")
         {
@@ -29,6 +29,7 @@ namespace DictionaryApp.Core.Services
             responseCache = new Dictionary<string, object>();
         }
 
+        //auto generated code. request for specified API.
         public async Task<T> GetAsync<T>(string uri, string accessToken = null, bool forceRefresh = false)
         {
             T result = default;
@@ -58,13 +59,21 @@ namespace DictionaryApp.Core.Services
             return result;
         }
 
-        //private readonly string serverUrl = "https://dictionary.yandex.net/api/v1/dicservice.json";
-
+        /// <summary>
+        /// Returns all available language pairs from the API.
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<string>> GetListOfLanguages()
         {
             return await GetAsync<List<string>>("getLangs?key=" + API_KEY);
         }
 
+        /// <summary>
+        /// returns the lookup object for the specified word and input language.
+        /// </summary>
+        /// <param name="lang">input language</param>
+        /// <param name="text">word to translate</param>
+        /// <returns></returns>
         public async Task<LookUp> LookupTranslation(string lang, string text)
         {
             return await GetAsync<LookUp>($"lookup?key={API_KEY}&lang={lang}&text={text}");
